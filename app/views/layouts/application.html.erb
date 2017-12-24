@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bright Ideas</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <style>
+  * {
+    margin: none;
+    font-family: arial, sans-serif;
+  }
+  #notice {
+    width: 100%
+    margin: none;
+    padding: 4px;
+    background-color:lightgreen;
+    color: darkgreen;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+  }
+  #errors {
+      width: 100%
+      margin: none;
+      padding: 4px;
+      background-color:lightpink;
+      color: darkred;
+      font-size: 14pt;
+      font-weight: bold;
+      text-align: center;
+  }
+  #left {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+    vertical-align: left;
+  }
+  #right {
+    display: inline-block;
+    width: 48%;
+    text-align:right;
+  }
+  .right {
+    text-align: right;
+  }
+  .left {
+    text-align: left;
+  }
+  .center {
+      text-align: center;
+  }
+  .italic {
+    font-style: italic;
+  }
+  .button {
+    line-height: 12pt;
+    font-size: 12pt;
+    border: 2px solid black;
+    box-shadow: 1px 0px 1px 0px darkgrey;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color:silver;
+  }
+  .button:hover {
+    border: 2px solid cyan;
+    background-color: black;
+    color: silver;
+    cursor: pointer;
+    font-weight: lighter;
+  }
+  .text_input {
+    float: left;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 3px;
+    box-shadow: 0px 1px 0px 0px black;
+    line-height: 12pt;
+    font-size: 12pt;
+}
+.text_area {
+  float: center;
+  overflow: scroll;
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0px 1px 0px 0px black;
+  line-height: 12pt;
+  font-size: 12pt;
+}
+label {
+    float: left;
+    width: 160px;
+    text-align:right;
+    vertical-align: center;
+    padding-right: 10px;
+    font-style: bold;
+}
+#button {
+    text-align: center;
+    width: 200px;
+    line-height: 12pt;
+    font-size: 12pt;
+    border: 2px solid black;
+    box-shadow: 1px 0px 1px 0px darkgrey;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color:silver;
+}
+#button:hover {
+    border: 2px solid cyan;
+    background-color: black;
+    color: silver;
+    cursor: pointer;
+    font-weight: lighter;
+}
+  .table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table th {
+    font-size: 11pt;
+  }
+  .table td {
+    padding: 4px;
+    font-size: 10pt;
+  }
+  .table tr:nth-child(odd) {
+    border: 1px solid #dddddd;
+  }
+  .table tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+</style>
+
+</head>
+
+
+<body>
+
+<% if flash[:notice] %>
+  <% flash[:notice].each do |note| %>
+      <p id="notice"><%= note %></p>
+  <% end %>
+<% end %>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+      <p id="errors"><%= error %></p>
+  <% end %>
+<% end %>
+
+<% if current_user %>
+  <div id='nav'>
+    <h5 id='left'>
+      <a href='/bright_ideas'>Home</a>
+      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+      <a id="Log Out" class="btn btn-sm" href='/sessions/<%=current_user.id%>' data-method="delete"><i class="pg-trash">
+      </i>Log Out</a>
+    </h5>
+    <h5 id='right'>Logged in as <%=current_user.alias_name %></h5>
+    <br>
+  </div>
+
+<% end %> 
+
+<%= yield %>
+
+</body>
+</html>

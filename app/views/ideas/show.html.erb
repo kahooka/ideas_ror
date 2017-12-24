@@ -1,0 +1,41 @@
+<style>
+    h2, h4 {
+        text-align: center;
+    }
+    p {
+        margin-left: 15%;
+        margin-right: 15%;
+        text-align:center;
+        font-weight: bold;
+    }
+    #posted_by {
+        font-style: italic;
+        font-weight: lighter;
+        text-decoration:italic;
+        font-size: 10pt;
+    }
+    #idea {
+        width: 40%;
+        text-align: center;
+    }
+</style>
+
+<hr><hr>
+
+    <p><%=@idea.content%></p>
+    <p><span id='posted_by'>- posted by <a href='/users/<%=@user.id%>'><%=@user.alias_name%></a> @ <%=@idea.created_at %></span></p>
+
+<br><br>
+
+    <h4 class='left'>Users who like this idea: <%=@idea.likes.count%></h4>
+
+    <% if @likes %>
+    <table id='idea' class='table'>
+        <% @likes.each do |like| %>
+            <tr>
+                <td class='first'><a href='/users/<%=like.user.id%>'><%=like.user.alias_name%></a></td>
+                <td class='second'><%=like.user.name%></td>
+            <tr>
+        <% end %>
+    </table>
+    <% end %>

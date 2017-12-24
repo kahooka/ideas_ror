@@ -1,0 +1,65 @@
+<head>
+    <style>
+        h2, h4 {
+            text-align: center;
+        }
+        .idea_form {
+            width: 100%;
+            text-align: center;
+            vertical-align: center;
+        }
+        #submit_idea {
+            float: center;
+            margin-left: 20px;
+            padding: 12px 35px;
+            vertical-align: 130%;
+            border: 3px solid black;
+        }
+        .first, .third {
+            width: 13%;
+        }
+        .fourth, .fifth {
+            width: 10%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <hr><hr>
+        <h1 class-'left'>Your profile</h1>
+        <h2><%=@user.alias_name%></h2>
+        <h4><%=@user.name%>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.email%></h4>
+        <h4>Ideas Posted: <%=@user.ideas.count%></h4>
+        <h4>Ideas Liked: <%=@user.likes.count%> </h4>
+
+    <br><br>
+    <hr><hr>
+
+        <h1 class='left'>Bright ideas</h1>
+        <form action='/ideas' method='post' class='idea_form'>
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
+            <textarea name=idea[content] class='text_area' id = "idea_content" placeholder='Post an idea here...'></textarea>
+            <input type="submit" name='post' value='Post Idea' id='submit_idea' class='button'/>	
+        </form>
+
+    <br><br>
+
+    <% if @ideas %>
+        <% @ideas.order('liked_by DESC')%>
+        <% @ideas.each do |idea| %>
+            <table class='table'>
+                <tr>
+                    <td class='first'><a href='/users/<%=idea.user.id%>'><%=idea.user.alias_name%></td>
+                    <td class='second'><%=idea.content%></td>
+                    <td class='third'><a href='/ideas/<%=idea.id%>'><%=idea.likes.count%> people</a> like this</td>
+                    <td class='fourth'><a id="create_like" href='/ideas/<%= idea.id%>/like' data-method="post">Like</a></td>
+                    <td class='fifth'><% if idea.user == current_user %><a id="delete_idea" class="btn btn-sm" href='/ideas/<%= idea.id%>' data-method="delete">Delete Idea</a><%end%></td>
+                </tr>
+            <% end %>
+        </table>
+    <% end %>
+
+
+
+
+    <br><br>

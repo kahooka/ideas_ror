@@ -1,0 +1,35 @@
+<style>
+    h2, h4 {
+        text-align: center;
+    }
+</style>
+
+<hr><hr>
+        <h1 class-'left'>User profile</h1>
+        <h2><%=@user.alias_name%></h2>
+        <h4><%=@user.name%>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.email%></h4>
+        <h4>Ideas Posted: <%=@user.ideas.count%></h4>
+        <h4>Ideas Liked: <%=@user.likes.count%> </h4>
+
+<br><br>
+<hr><hr>
+<br><br>
+
+<% if @ideas %>
+    <% @ideas.each do |idea| %>
+        <table class='table'>
+            <tr>
+                <td class='first'><a href='/users/<%=idea.user.id%>'><%=idea.user.alias_name%></td>
+                <td class='second'><%=idea.content%></td>
+                <td class='third'><a href='/ideas/<%=idea.id%>'><%=idea.likes.count%> people</a> like this</td>
+                <td class='fourth'><a id="create_like" href='/ideas/<%= idea.id%>/like' data-method="post">Like</a></td>
+                <td class='fifth'><% if idea.user == current_user %><a id="delete_idea" class="btn btn-sm" href='/ideas/<%= idea.id%>' data-method="delete">Delete Idea</a><%end%></td>
+            </tr>
+        <% end %>
+    </table>
+<% end %>
+
+
+
+
+<br><br>
